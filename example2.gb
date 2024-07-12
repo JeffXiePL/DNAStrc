@@ -1,0 +1,14 @@
+LOCUS       testseq                   34 bp    DNA              UNK 01-JAN-1980
+DEFINITION  sequence for testing, DNA.
+ACCESSION   111
+VERSION     111.1
+KEYWORDS    .
+SOURCE      .
+  ORGANISM  .
+            .
+FEATURES             Location/Qualifiers
+     CDS             join(3..14,19..27)
+                     /translation="IFKRAII"
+ORIGIN
+        1 aaatttttaa aagggcgcgc aatcataggc ataa
+//
