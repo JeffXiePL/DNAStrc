@@ -13,7 +13,7 @@ class str_circ(str):
             return super().__getitem__(key)
         else:
             new_start = key.start if key.start else 0
-            new_stop = key.stop if key.stop else 0
+            new_stop = key.stop - 1 if key.stop else 0
             if new_start > new_stop:
                 self.data = self.data[key.start:] + self.data[ :key.stop]
             return super().__getitem__(slice(new_start, new_stop, key.step))
