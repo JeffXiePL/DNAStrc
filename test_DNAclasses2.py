@@ -55,12 +55,12 @@ def test_dscut():
 
 def test_dscut2n2n():
     DNA = DNAStrc2("CCCCCAAGCTTCCCAAGCTTCCCCCCC", -2, -2)
-    assert DNA.dscut([HindIII]) == (DNAStrc2("CCCCCAAGCT"), DNAStrc2("AGCTTCCCAAGCT"), DNAStrc2("AGCTTCCCCCCC"))    #noqa
+    assert DNA.dscut([HindIII]) == (DNAStrc2("CCCCCAAGCT"), DNAStrc2("AGCTTCCCAAGCT"), DNAStrc2("AGCTTCCCCCCC"))    # noqa
 
 
 def test_dscut2enz():
     DNA = DNAStrc2("TTTTTAAGCTTTTTGAATTCTTTTTT", 0, 0)
-    assert DNA.dscut([HindIII, EcoRI]) == (DNAStrc2("TTTTTAAGCT"), DNAStrc2("AGCTTTTTGAATT"), DNAStrc2("AATTCTTTTTT"))  #noqa
+    assert DNA.dscut([HindIII, EcoRI]) == (DNAStrc2("TTTTTAAGCT"), DNAStrc2("AGCTTTTTGAATT"), DNAStrc2("AATTCTTTTTT"))  # noqa
 
 
 def test_dscut_circ():
