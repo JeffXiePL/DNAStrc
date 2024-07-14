@@ -12,7 +12,7 @@ class str_circ(str):
         if isinstance(key, int):
             return super().__getitem__(key)
         elif key.start is not None and key.stop is not None:
-            if key.start > key.stop:
+            if key.start >= key.stop:
                 return super().__getitem__(slice(key.start, len(self), key.step)) + super().__getitem__(slice(0, key.stop, key.step))
             else:
                 return super().__getitem__(slice(key.start, key.stop, key.step))
@@ -99,29 +99,21 @@ class DNAStrc2(Seq):
                 elif end == site[0]:
                     end_ovhg = site[1]
             ovhgs.append((start_ovhg, end_ovhg))
-            if end_ovhg < 0:
-                seqs.append(seq[start:end - end_ovhg])
-            elif start_ovhg > 0:
-                seqs.append(seq[start - start_ovhg:end]) 
+            if end == len(seq):
+                # if site_pairs[-1][0] == site_pairs[0][1]:
+                #     print(site_pairs)
+                #     seqs.append(seq[6:5])
+                # else:
+                seqs.append(seq[site_pairs[-1][0]:site_pairs[0][1]]+
+                            )
+                del seqs[0]
+                ovhgs[len(ovhgs)-1] = (ovhgs[-1][0], ovhgs[0][-1])
+                del ovhgs[0]
             else:
-                if end == len(seq):
-                    if site_pairs[-1][0] == site_pairs[0][1]:
-                        print(seqs)
-                        #issue with indexing seq, unknown error.
-                        print(ovhgs)
-                        print(site_pairs)
-                        print(seq[0:site_pairs[0][1]])
-                        seqs.append(seq[site_pairs[-1][0]:site_pairs[0][1]-1]
-                                    + seq[0:site_pairs[0][1] - ovhgs[0][1]])
-                        
-                        #this only works for negative overhang enzymes, because minus
-                        del seqs[0]
-                        ovhgs[len(ovhgs)-1] = (ovhgs[-1][0], ovhgs[0][-1])
-                        del ovhgs[0]
-
-                    else:
-                        seqs.append(seq[site_pairs[-1][0]:site_pairs[0][1]])
-                        del seqs[0]
+                if end_ovhg < 0:
+                    seqs.append(seq[start:end - end_ovhg])
+                elif start_ovhg > 0:
+                    seqs.append(seq[start - start_ovhg:end]) 
                 else:
                     seqs.append(seq[start:end])
         fragments = []
@@ -147,6 +139,6 @@ if __name__ == "__main__":
     for i in new_seq:
         print(i)
     # my_seq = str_circ("TTTTTGAATTCTTTTT")
-    # print(my_seq[10:14])
+    # print(my_seq[6:6])
 
 
