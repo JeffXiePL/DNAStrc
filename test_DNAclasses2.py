@@ -65,4 +65,4 @@ def test_dscut2enz():
 
 def test_dscut_circ():
     DNA = DNAStrc2("TTTTTGAATTCTTTTT", 0, 0)
-    assert DNA.dscut_circ([EcoRI]) == (DNAStrc2("AATTCTTTTTTTTTTGAATT"))
+    assert DNA.dscut_circ([EcoRI]) == (DNAStrc2("AATTCTTTTTTTTTTGAATT"),)

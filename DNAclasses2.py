@@ -104,8 +104,8 @@ class DNAStrc2(Seq):
                 #     print(site_pairs)
                 #     seqs.append(seq[6:5])
                 # else:
-                seqs.append(seq[site_pairs[-1][0]:site_pairs[0][1]]+
-                            )
+                seqs.append(seq[site_pairs[-1][0]:site_pairs[0][1]] +
+                            seq[site_pairs[0][1]:site_pairs[0][1] + abs(ovhgs[0][1])])
                 del seqs[0]
                 ovhgs[len(ovhgs)-1] = (ovhgs[-1][0], ovhgs[0][-1])
                 del ovhgs[0]
