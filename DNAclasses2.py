@@ -100,12 +100,14 @@ class DNAStrc2(Seq):
                     end_ovhg = site[1]
             ovhgs.append((start_ovhg, end_ovhg))
             if end == len(seq):
-                # if site_pairs[-1][0] == site_pairs[0][1]:
-                #     print(site_pairs)
-                #     seqs.append(seq[6:5])
-                # else:
-                seqs.append(seq[site_pairs[-1][0]:site_pairs[0][1]] +
-                            seq[site_pairs[0][1]:site_pairs[0][1] + abs(ovhgs[0][1])])
+                if ovhgs[0][1] < 0:
+                    seqs.append(seq[site_pairs[-1][0]:site_pairs[0][1]] +
+                                seq[site_pairs[0][1]:site_pairs[0][1] - ovhgs[0][1]])
+                elif ovhgs[0][1] > 0:
+                    seqs.append(seq[site_pairs[-1][0] - ovhgs[-1][0]:site_pairs[-1][0]] +
+                                seq[site_pairs[-1][0]:site_pairs[0][1]])
+                else:
+                    seqs.append(seq[site_pairs[-1][0]:site_pairs[0][1]])
                 del seqs[0]
                 ovhgs[len(ovhgs)-1] = (ovhgs[-1][0], ovhgs[0][-1])
                 del ovhgs[0]
@@ -133,8 +135,8 @@ if __name__ == "__main__":
     # new_seq = my_seq.dscut([EcoRI, HindIII])
     # my_seq = DNAStrc2("TTTTTAAGCTTTTTCTGCAGTTTTTT", 0, 0)
     # new_seq = my_seq.dscut([PstI, HindIII])
-    my_seq = DNAStrc2("TTTTTGAATTCTTTTT", 0, 0)
-    new_seq = my_seq.dscut_circ([EcoRI])
+    my_seq = DNAStrc2("TTTTTGATATCTTTTT", 0, 0)
+    new_seq = my_seq.dscut_circ([EcoRV])
     print(new_seq)
     for i in new_seq:
         print(i)

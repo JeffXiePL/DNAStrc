@@ -1,5 +1,5 @@
 from DNAclasses2 import DNAStrc2
-from Bio.Restriction import HindIII, EcoRI
+from Bio.Restriction import HindIII, EcoRI, PstI, EcoRV
 import pytest
 
 
@@ -63,6 +63,20 @@ def test_dscut2enz():
     assert DNA.dscut([HindIII, EcoRI]) == (DNAStrc2("TTTTTAAGCT"), DNAStrc2("AGCTTTTTGAATT"), DNAStrc2("AATTCTTTTTT"))  # noqa
 
 
-def test_dscut_circ():
+def test_dscut_circ_neg():
     DNA = DNAStrc2("TTTTTGAATTCTTTTT", 0, 0)
     assert DNA.dscut_circ([EcoRI]) == (DNAStrc2("AATTCTTTTTTTTTTGAATT"),)
+
+
+def test_dscut_circ_pos():
+    DNA = DNAStrc2("TTTTTCTGCAGTTTTT")
+    assert DNA.dscut_circ([PstI]) == (DNAStrc2("TGCAGTTTTTTTTTTCTGCA"),)
+
+
+def test_dscut_circ_zero():
+    DNA = DNAStrc2("TTTTTGATATCTTTTT")
+    assert DNA.dscut_circ([EcoRV]) == (DNAStrc2("ATCTTTTTTTTTTGAT"),)
+
+def test_dscut_circ_neg_2enz():
+    DNA = DNAStrc2("CCCCCAAGCTTCCCCCAAGCTTCCCCCC")
+    assert DNA.dscut_circ([HindIII]) == (DNAStrc2("AGCTTCCCCCAAGCT"), DNAStrc2("AGCTTCCCCCCCCCCCAAGCT"))
