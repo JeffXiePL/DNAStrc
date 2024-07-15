@@ -26,7 +26,6 @@ record1 = SeqRecord(
 #Adding a translation
 CDS = record1.seq[2:14]
 CDS1 = record1.seq[18:27]
-#Self note: How do I tell python that something is a method?
 CDS_trans = CDS.translate()
 CDS1_trans = CDS1.translate()
 join = Seq("").join([CDS_trans,CDS1_trans])
