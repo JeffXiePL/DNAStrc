@@ -80,3 +80,16 @@ def test_dscut_circ_zero():
 def test_dscut_circ_neg_2enz():
     DNA = DNAStrc2("CCCCCAAGCTTCCCCCAAGCTTCCCCCC")
     assert DNA.dscut_circ([HindIII]) == (DNAStrc2("AGCTTCCCCCAAGCT"), DNAStrc2("AGCTTCCCCCCCCCCCAAGCT"))
+
+
+def test_dscut_circ_neg_pos_2enz():
+    DNA = DNAStrc2("CCCCCAAGCTTGGGGGCTGCAGCCCCCC")
+    assert DNA.dscut_circ([PstI, HindIII]) == (DNAStrc2("AGCTTGGGGGCTGCA"), DNAStrc2("TGCAGCCCCCCCCCCCAAGCT"))
+
+def test_dscut_circ_pos_neg_2enz():
+    DNA = DNAStrc2("AAAAACTGCAGTTTTTAAGCTTCCCCC")
+    assert DNA.dscut_circ([PstI, HindIII]) == (DNAStrc2("TGCAGTTTTTAAGCT"), DNAStrc2("AGCTTCCCCCAAAAACTGCA"))
+
+def test_dscut_circ_pos_2enz():
+    DNA = DNAStrc2("AAAAACTGCAGAAAAACTGCAGAAAAA")
+    assert DNA.dscut_circ([PstI]) == (DNAStrc2("TGCAGAAAAACTGCA"), DNAStrc2("TGCAGAAAAAAAAAACTGCA"))
